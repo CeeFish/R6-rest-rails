@@ -30,7 +30,7 @@ class Api::V1::FactsController < ApplicationController
   # PUT /members/:member_id/facts/:id
   def update
     if @fact.update(fact_params)
-      render json: @member.fact, status: 200
+      render json: @fact, status: 200
     else
       render json: { error: "Unable to update fact: #{@fact.errors.full_messages.to_sentence}"}, status: 400
     end
