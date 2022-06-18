@@ -34,7 +34,7 @@ class Api::V1::MembersController < ApplicationController
     end
   end
 
-  # DELETE /members/:idbnnn             
+  # DELETE /members/:id             
   def destroy
     @member.destroy
     render json: { message: 'Member record successfully deleted.'}, status: 200
