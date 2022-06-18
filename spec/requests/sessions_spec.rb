@@ -1,5 +1,4 @@
 require 'swagger_helper'
-require 'devise/jwt/test_helpers'
 
 describe 'sessions API' do
   #Creates swagger for documentaion for login
@@ -45,13 +44,16 @@ describe 'sessions API' do
   path '/users/sign_out' do
 
     delete 'Destroy JWT token' do
-# By creating the test for the sessions controller, we provide a means for the user to log on using the Swagger interface. We also document logout.
-# For logout it is necessary that the user be authenticated. So we have to create a user, and then a token associated with that user. That is done with the following two lines:
+#By creating the test for the sessions controller, we provide a means for the user to log on using the Swagger interface. 
+#We also document logout. For logout it is necessary that the user be authenticated. So we have to create a user, and then a token associated with that user. 
+#That is done with the following 2 lines:
       let(:user) { FactoryBot.create(:user) }
       let (:auth_header) {"Bearer "+Warden::JWTAuth::UserEncoder.new.call(user, :user,nil)[0]}
       tags 'sessions'
       consumes 'application/json'
       produces 'application/json'
+#To have access to the JWTAuth helper that creates the token, we have to require the jwt test helpers, as per the second line in this file. 
+#We also have to tell swagger that authentication is needed for this API. That is done with the line below:
       security [Bearer: {}]
       #This includes a valid auth token header
         response '200', 'blacklist token' do
